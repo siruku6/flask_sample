@@ -14,7 +14,23 @@
 </form>
 
 <form action='/add_record' method='get'>
-  <input type='submit' value='テーブルドロップ'>
+  <input type='submit' value='レコード追加'>
 </form>
+
+<h2>students list</h2>
+<table>
+  <tr>
+    <th>id</th>
+    <th>名前</th>
+    <th>よみがな</th>
+  </tr>
+  {%  for student in students  %}
+  <tr>
+    <th>{{ student.id }}</th>
+    <th>{{ student.name }}</th>
+    <th>{{ student.kana }}</th>
+  </tr>
+  {% endfor %}
+</table>
 
 {% endblock %}

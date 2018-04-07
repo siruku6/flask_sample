@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 # import logging
 
 from migration import *
@@ -8,7 +8,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    students = Student.__table__.select().execute().fetchall()
+    return render_template('index.html', students=students)
 
 @app.route('/break')
 def hello():
@@ -31,7 +32,7 @@ def create_db():
 @app.route('/add_record')
 def add_record():
     Student.__table__.insert().execute(name='お名前', kana='おなまえ')
-    return ''
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
