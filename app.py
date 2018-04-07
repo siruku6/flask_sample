@@ -22,14 +22,16 @@ def create():
 
 @app.route('/create_db')
 def create_db():
-    schema = 'CREATE DATABASE IF NOT EXISTS `%s`;' % 'sample_tmp_db'
-    result = SQL_Obj.connect().execute(schema)
-    return 'DB is created ? ' + str(result)
+    url        = 'mysql://root:password@localhost'
+    new_engine = sql_al.create_engine(url, encoding='utf-8', echo=True)
+    schema     = 'CREATE DATABASE IF NOT EXISTS `%s` DEFAULT CHARACTER SET utf8;' % 'flask_sample'
+    result     = new_engine.connect().execute(schema)
+    return 'DB is created !'
 
 @app.route('/add_record')
 def add_record():
-    Student.__table__.drop(SQL_Obj)
-    return 'テーブルを作成しました！'
+    Student.__table__.insert().execute(name='お名前', kana='おなまえ')
+    return ''
 
 
 if __name__ == '__main__':
