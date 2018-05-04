@@ -1,0 +1,30 @@
+-extends 'layout.html'
+-block content
+
+  <!-- Form ============================== -->
+  %h2 << ぼくは中身
+  %a href='/break' <<  ブレークポイントへ
+  %form action='/create' method='post'
+    %input type='text' name='data'
+    %input type='submit' value='送信'
+
+  %form action='/create_db' method='get'
+    %input type='submit' value='DB作成'
+
+  %form action='/add_record' method='get'
+    %input type='submit' value='レコード追加'
+
+  %h2 << students list
+  %table
+    %tr
+      %th << id
+      %th << 名前
+      %th << よみがな
+    -for student in students
+      %tr
+        %th
+          = student.id
+        %th
+          = student.name
+        %th
+          = student.kana

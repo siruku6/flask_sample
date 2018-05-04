@@ -1,21 +1,32 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask    import Flask, render_template, request, redirect, url_for
+from werkzeug import ImmutableDict
 # import logging
 
 from migration import *
 
-app = Flask(__name__)
+class FlaskWithHamlish(Flask):
+    jinja_options = ImmutableDict(
+        extensions=['jinja2.ext.autoescape',
+                    'jinja2.ext.with_',
+                    'hamlish_jinja.HamlishExtension'])
+
+
+# app = Flask(__name__)
+app = FlaskWithHamlish(__name__)
+app.jinja_env.hamlish_mode = 'indented'
+app.jinja_env.hamlish_enable_div_shortcut = True
 # app.logger.setLevel(logging.WARNING)
 
 @app.route('/')
 def index():
     students = Student.__table__.select().execute().fetchall()
-    return render_template('index.html', students=students)
+    return render_template('index.haml', students=students)
 
 @app.route('/break')
 def hello():
     hoge = 'hogehoge'
     import pdb; pdb.set_trace()
-    return 'hello'
+    return render_template('hamlish.haml', test='hello')
 
 @app.route('/create', methods=['POST'])
 def create():
