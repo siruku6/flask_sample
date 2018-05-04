@@ -1,6 +1,7 @@
 from flask    import Flask, render_template, request, redirect, url_for
 from werkzeug import ImmutableDict
 # import logging
+from flask_bootstrap import Bootstrap
 
 from migration import *
 
@@ -15,6 +16,8 @@ class FlaskWithHamlish(Flask):
 app = FlaskWithHamlish(__name__)
 app.jinja_env.hamlish_mode = 'indented'
 app.jinja_env.hamlish_enable_div_shortcut = True
+bootstrap = Bootstrap(app)
+
 # app.logger.setLevel(logging.WARNING)
 
 @app.route('/')

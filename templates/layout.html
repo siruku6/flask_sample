@@ -1,11 +1,8 @@
-<!DOCTYPE html>
+{% extends 'bootstrap/base.html' %}
 
-<html>
-  <head>
-    <title>flask_app</title>
-  </head>
-  <body>
-    <p>外枠だよ。</p>
-    {% block content %}{% endblock %}
-  </body>
-</html>
+{% block title %} Flasky {% endblock %}
+
+{% block content %}
+  <p>外枠だよ。</p>
+  {% block yield %}{% endblock %}
+{% endblock %}
