@@ -25,6 +25,17 @@ def index():
     students = Student.__table__.select().execute().fetchall()
     return render_template('index.haml', students=students)
 
+@app.route('/', methods=['POST'])
+def create():
+    name = request.form['name']
+    Student.__table__.insert().execute(name=name, kana='おなまえ')
+    return redirect(url_for('index'))
+
+@app.route('/<int:id>', methods=['POST'])
+def destroy(id):
+    Student.__table__.delete().where(StudentCols.get.id==id).execute()
+    return redirect(url_for('index'))
+
 @app.route('/break')
 def hello():
     hoge = 'hogehoge'
@@ -32,7 +43,7 @@ def hello():
     return render_template('hamlish.haml', test='hello')
 
 @app.route('/create', methods=['POST'])
-def create():
+def create_test():
     return request.form['data'] + ' is posted !'
 
 @app.route('/create_db')
@@ -42,12 +53,6 @@ def create_db():
     schema     = 'CREATE DATABASE IF NOT EXISTS `%s` DEFAULT CHARACTER SET utf8;' % 'flask_sample'
     result     = new_engine.connect().execute(schema)
     return 'DB is created !'
-
-@app.route('/add_record')
-def add_record():
-    Student.__table__.insert().execute(name='お名前', kana='おなまえ')
-    return redirect(url_for('index'))
-
 
 if __name__ == '__main__':
     #app.config['DEBUG'] = True

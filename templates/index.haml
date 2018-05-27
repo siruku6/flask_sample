@@ -6,13 +6,15 @@
   %a href='/break' <<  ブレークポイントへ
   %form action='/create' method='post'
     %input type='text' name='data'
-    %input.btn.btn-info type='submit' value='送信'
+    %input type='submit' value='postテスト'
 
   %form action='/create_db' method='get'
-    %input type='submit' value='DB作成'
+    %input.btn.btn-danger type='submit' value='DB作成'
 
-  %form action='/add_record' method='get'
-    %input type='submit' value='レコード追加'
+  %form action='/' method='post'
+    %label for='name' << 名前
+    %input id='name' type='text' name='name'
+    %input.btn.btn-info type='submit' value='レコード追加'
 
   %h2 << students list
   %table
@@ -20,11 +22,15 @@
       %th << id
       %th << 名前
       %th << よみがな
+      %th
     -for student in students
       %tr
-        %th
+        %td
           = student.id
-        %th
+        %td
           = student.name
-        %th
+        %td
           = student.kana
+        %td
+          %form action= "/{{student.id}}" method='post'
+            %input type='submit' class='btn btn-default' value='削除'
