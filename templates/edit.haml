@@ -1,0 +1,11 @@
+-extends 'layout.html'
+-block yield
+  %h1 << 学生情報編集画面
+  %form action="/update/{{student.id}}" method='post'
+    %label for='id' << id
+    %input id='id' type='text' name='id' value='{{student.id}}'
+    %label for='name' << 名前
+    %input id='name' type='text' name='name' value="{{student.name}}"
+    %label for='kana' << かな
+    %input id='kana' type='text' name='kana' value="{{student.kana}}"
+    %input.btn.btn-warning type='submit' value='編集'

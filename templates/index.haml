@@ -4,7 +4,7 @@
   <!-- Form ============================== -->
   %h2 << ぼくは中身
   %a href='/break' <<  ブレークポイントへ
-  %form action='/create' method='post'
+  %form action='/post_test' method='post'
     %input type='text' name='data'
     %input type='submit' value='postテスト'
 
@@ -23,6 +23,7 @@
       %th << 名前
       %th << よみがな
       %th
+      %th
     -for student in students
       %tr
         %td
@@ -31,6 +32,9 @@
           = student.name
         %td
           = student.kana
+        %td
+          %a href='/{{student.id}}'
+            %button << 修正
         %td
           %form action= "/{{student.id}}" method='post'
             %input type='submit' class='btn btn-default' value='削除'

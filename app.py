@@ -31,6 +31,21 @@ def create():
     Student.__table__.insert().execute(name=name, kana='おなまえ')
     return redirect(url_for('index'))
 
+@app.route('/<int:id>')
+def edit(id):
+    student = Student.__table__.select().where(StudentCols.get.id==id).execute().fetchall()
+    # import pdb; pdb.set_trace()
+    return render_template('edit.haml', student=student[0])
+
+@app.route('/update/<int:id>', methods=['POST'])
+def update(id):
+    Student.__table__.update().where(StudentCols.get.id==id).execute(
+        id   = int(request.form['id']),
+        name =     request.form['name'],
+        kana =     request.form['kana']
+    )
+    return redirect(url_for('index'))
+
 @app.route('/<int:id>', methods=['POST'])
 def destroy(id):
     Student.__table__.delete().where(StudentCols.get.id==id).execute()
@@ -42,7 +57,7 @@ def hello():
     import pdb; pdb.set_trace()
     return render_template('hamlish.haml', test='hello')
 
-@app.route('/create', methods=['POST'])
+@app.route('/post_test', methods=['POST'])
 def create_test():
     return request.form['data'] + ' is posted !'
 
