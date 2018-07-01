@@ -26,12 +26,9 @@
       %th
     -for student in students
       %tr
-        %td
-          = student.id
-        %td
-          = student.name
-        %td
-          = student.kana
+        %td << {{ student.id }}
+        %td << {{ student.name }}
+        %td << {{ student.kana }}
         %td
           %a href='/{{student.id}}'
             %button.btn.btn-success << 修正
