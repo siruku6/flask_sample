@@ -9,7 +9,6 @@ class Student(Base):
 
 class StudentCols():
     get = Student.__table__.c
-    # Student.__table__.delete().where(Student.__table__.c.id==1).execute()
 
 # この処理でテーブル作成を実行
 def main(args):
